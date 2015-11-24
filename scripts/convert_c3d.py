@@ -65,3 +65,5 @@ else:
     #convert_and_write(file_u.encode("ascii"))
     folder_u=tkFileDialog.askdirectory(title='Choose a folder with c3d files to convert', initialdir='.') #get directory
     convert_and_write(folder_u.encode("ascii"))
+
+    
