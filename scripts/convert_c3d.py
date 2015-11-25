@@ -5,7 +5,7 @@ import Tkinter, tkFileDialog
 import os
 import argparse
 
-
+# TODO: This function is doing too many things.  Why not break it into 3 functions: read, convert, and write?
 def convert_and_write(c3d_file):
     directory, extension = os.path.splitext(c3d_file)
     converted_c3d_file= ''.join([directory, '_vicon', extension])
@@ -28,7 +28,7 @@ def convert_and_write(c3d_file):
     writer.SetFilename(converted_c3d_file)
     writer.Update()
 
-
+# TODO: Make an "if __name__ == '__main__'" section for seperating your script control logic from your functions. This is messy!
 parser = argparse.ArgumentParser(description="This script converts a c3d file as exported by motive to a vicon readable c3d file.",
                                  epilog="If no arguments are given, the script first opens a window to let you choose a c3d file or a directory of c3d files to convert. \n")
 
@@ -40,7 +40,7 @@ parser.add_argument('-s', action='store', dest='write_c3d_folder', default='jifo
 
 args = parser.parse_args()
 
-
+# TODO: This series of 'if' statements is too complex.  Please simplify: Get Filenames-->Check Directories-->Read-->Convert-->Write
 if args.c3d_file and not args.c3d_folder:
     convert_and_write(args.c3d_file)
 
