@@ -56,7 +56,7 @@ if __name__ == '__main__':
 
     #parser.add_argument('-F', action='store', dest='c3d_folder', default='', help='Name of the folder which contains c3d files to convert.')
 
-    parser.add_argument('-s', action='store', dest='write_c3d_folder', default='jifoew',
+    parser.add_argument('-s', action='store', dest='write_c3d_folder', default='',
                         help='Folder where converted c3d files will be written to.')
 
     parser.add_argment('--append', action='store', dest='save_filename_append', default='_vicon',
