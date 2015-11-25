@@ -5,11 +5,13 @@ import Tkinter, tkFileDialog
 import os
 import argparse
 
-# TODO: This function is doing too many things.  Why not break it into 3 functions: read, convert, and write?
-def convert_and_write(c3d_file):
 
+
+def convert_and_write(from_c3d_filename, to_c3d_filename):
+
+    # Makes reader from filename
     reader = btk.btkAcquisitionFileReader()
-    reader.SetFilename(c3d_file)
+    reader.SetFilename(from_c3d_filename)
     reader.Update()
     acq=reader.GetOutput()
     points=acq.GetPoints()
@@ -21,26 +23,11 @@ def convert_and_write(c3d_file):
             data=point.GetValues()[f,:]
             point.SetDataSlice(f, *[1000*x for x in data])
 
-    directory, extension = os.path.splitext(c3d_file)
-    converted_c3d_file= ''.join([directory, '_vicon', extension])
     writer = btk.btkAcquisitionFileWriter()
     writer.SetInput(acq)
-    writer.SetFilename(converted_c3d_file)
+    writer.SetFilename(to_c3d_filename)
     writer.Update()
 
-
-# TODO: Make an "if __name__ == '__main__'" section for seperating your script control logic from your functions. This is messy!
-
-parser = argparse.ArgumentParser(description="This script converts a c3d file as exported by motive to a vicon readable c3d file.",
-                                 epilog="If no arguments are given, the script first opens a window to let you choose a c3d file or a directory of c3d files to convert. \n")
-
-parser.add_argument('-f', action='store', dest='c3d_file', default='', help='Name of the c3d file to convert.')
-
-parser.add_argument('-F', action='store', dest='c3d_folder', default='', help='Name of the folder which contains c3d files to convert.')
-
-parser.add_argument('-s', action='store', dest='write_c3d_folder', default='jifoew', help='Folder where converted c3d files will be written to.')
-
-args = parser.parse_args()
 
 # TODO: This series of 'if' statements is too complex.  Please simplify: Get Filenames-->Check Directories-->Read-->Convert-->Write
 
@@ -87,6 +74,23 @@ else:
     Tkinter.mainloop()
 
 
+
+#
+if __name__ == '__main__':
+
+    # Parse Command-Line Arguments
+    parser = argparse.ArgumentParser(description="This script converts a c3d file as exported by motive to a vicon readable c3d file.",
+                                 epilog="If no arguments are given, the script first opens a window to let you choose a c3d file or a directory of c3d files to convert. \n")
+
+    parser.add_argument('-f', action='store', dest='c3d_file', default='', help='Name of the c3d file to convert.')
+
+    parser.add_argument('-F', action='store', dest='c3d_folder', default='', help='Name of the folder which contains c3d files to convert.')
+
+    parser.add_argument('-s', action='store', dest='write_c3d_folder', default='jifoew', help='Folder where converted c3d files will be written to.')
+
+    args = parser.parse_args()
+
+    #
 
 
 
