@@ -56,13 +56,11 @@ class App:
              convert_and_write(''.join([c3d_folder,"\\"+c3d_file]))
     root.quit()
 
-
   def write_slogan2(self):
     root.withdraw()
-    c3d_folder=tkFileDialog.askdirectory(title='Choose a folder with c3d files to convert').encode("ascii")
-    for c3d_file in os.listdir(c3d_folder):
-         if c3d_file.endswith(".c3d"):
-             convert_and_write(''.join([c3d_folder,"\\"+c3d_file]))
+    file_u=tkFileDialog.askopenfilename(title='Choose a c3d file to convert: ', filetypes=[('motive c3d tracking files', '*.c3d')])
+    convert_and_write(file_u.encode("ascii"))
+    root.quit()
 
 
 # TODO: Make an "if __name__ == '__main__'" section for seperating your script control logic from your functions. This is messy!
@@ -117,7 +115,7 @@ else:
     #Tkinter.Button(text='askopenfilename', command=askdirectory).pack(**button_opt)
     #file_u=tkFileDialog.askopenfilename(title='Choose a c3d file to convert: ', filetypes=[('motive c3d tracking files', '*.c3d')])
     #convert_and_write(file_u.encode("ascii"))
-    #def askdirectory:
+
 
     # c3d_folder_u=tkFileDialog.askdirectory(title='Choose a folder with c3d files to convert') #get directory
     # c3d_folder=c3d_folder_u.encode("ascii")
