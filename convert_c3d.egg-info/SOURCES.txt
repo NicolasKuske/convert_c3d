@@ -1,0 +1,7 @@
+README.rst
+setup.py
+convert_c3d.egg-info/PKG-INFO
+convert_c3d.egg-info/SOURCES.txt
+convert_c3d.egg-info/dependency_links.txt
+convert_c3d.egg-info/top_level.txt
+scripts/convert_c3d.py

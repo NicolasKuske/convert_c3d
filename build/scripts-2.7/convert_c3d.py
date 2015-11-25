@@ -59,6 +59,10 @@ else:
     #convert_and_write(file_u.encode("ascii"))
     c3d_folder_u=tkFileDialog.askdirectory(title='Choose a folder with c3d files to convert') #get directory
     c3d_folder=c3d_folder_u.encode("ascii")
+    print c3d_folder_u.encode("ascii")
+    print c3d_folder_u.encode("ascii")
+    print c3d_folder_u.encode("ascii")
+    print c3d_folder_u.encode("ascii")
     for c3d_file in os.listdir(c3d_folder):
         if c3d_file.endswith(".c3d"):
             convert_and_write(''.join([c3d_folder,"\\"+c3d_file]))
