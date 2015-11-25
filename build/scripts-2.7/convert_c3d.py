@@ -1,9 +1,7 @@
 __author__ = 'Nico'
 
 import btk
-import Tkinter, tkFileDialog, Tkconstants
-from Tkinter import *
-import tkFileDialog
+import Tkinter, tkFileDialog
 import os
 import argparse
 
@@ -29,38 +27,6 @@ def convert_and_write(c3d_file):
     writer.SetInput(acq)
     writer.SetFilename(converted_c3d_file)
     writer.Update()
-
-class App:
-  def __init__(self, master):
-    frame = Frame(master)
-    frame.pack()
-    self.button = Button(frame,
-                         text="QUIT", fg="red",
-                         command=frame.quit)
-    self.button.pack(side=LEFT)
-    self.slogan = Button(frame,
-                         text="Folder",
-                         command=self.write_slogan)
-    self.slogan.pack(side=LEFT)
-
-    self.slogan2 = Button(frame,
-                         text="File",
-                         command=self.write_slogan2)
-    self.slogan2.pack(side=LEFT)
-
-  def write_slogan(self):
-    root.withdraw()
-    c3d_folder=tkFileDialog.askdirectory(title='Choose a folder with c3d files to convert').encode("ascii")
-    for c3d_file in os.listdir(c3d_folder):
-         if c3d_file.endswith(".c3d"):
-             convert_and_write(''.join([c3d_folder,"\\"+c3d_file]))
-    root.quit()
-
-  def write_slogan2(self):
-    root.withdraw()
-    file_u=tkFileDialog.askopenfilename(title='Choose a c3d file to convert: ', filetypes=[('motive c3d tracking files', '*.c3d')])
-    convert_and_write(file_u.encode("ascii"))
-    root.quit()
 
 
 # TODO: Make an "if __name__ == '__main__'" section for seperating your script control logic from your functions. This is messy!
@@ -91,35 +57,36 @@ elif args.c3d_folder and args.c3d_file:
 
 else:
 
+#first try to create without app class. then use tkinter instead from tkinter
 
-    #root = Tkinter.Tk()
-    #root.withdraw()
+    root = Tkinter.Tk()
+
+    def write_slogan():
+        root.withdraw()
+        c3d_folder=tkFileDialog.askdirectory(title='Choose a folder with c3d files to convert').encode("ascii")
+        for c3d_file in os.listdir(c3d_folder):
+            if c3d_file.endswith(".c3d"):
+             convert_and_write(''.join([c3d_folder,"\\"+c3d_file]))
+        root.quit()
+
+    def write_slogan2():
+        root.withdraw()
+        file_u=tkFileDialog.askopenfilename(title='Choose a c3d file to convert: ', filetypes=[('motive c3d tracking files', '*.c3d')])
+        convert_and_write(file_u.encode("ascii"))
+        root.quit()
+
+    frame=Tkinter.Frame(root)
+    frame.pack()
+    button=Tkinter.Button(frame, text="QUIT", fg="red", command=frame.quit)
+    button.pack(side=Tkinter.LEFT)
+    slogan = Tkinter.Button(frame, text="Folder", command=write_slogan)
+    slogan.pack(side=Tkinter.LEFT)
+    slogan2 = Tkinter.Button(frame, text="File", command=write_slogan2)
+    slogan2.pack(side=Tkinter.LEFT)
+
+    Tkinter.mainloop()
 
 
-    # master = Tkinter.Tk()
-    #
-    # def callback():
-    #     print "click!"
-    #
-    # b = Tkinter.Button(master, text="OK", command=callback)
-    # b.pack()
-    # Tkinter.mainloop()
 
 
-
-    root = Tk()
-    app = App(root)
-    root.mainloop()
-
-    #button_opt = {'fill': Tkconstants.BOTH, 'padx': 5, 'pady': 5}
-    #Tkinter.Button(text='askopenfilename', command=askdirectory).pack(**button_opt)
-    #file_u=tkFileDialog.askopenfilename(title='Choose a c3d file to convert: ', filetypes=[('motive c3d tracking files', '*.c3d')])
-    #convert_and_write(file_u.encode("ascii"))
-
-
-    # c3d_folder_u=tkFileDialog.askdirectory(title='Choose a folder with c3d files to convert') #get directory
-    # c3d_folder=c3d_folder_u.encode("ascii")
-    # for c3d_file in os.listdir(c3d_folder):
-    #     if c3d_file.endswith(".c3d"):
-    #         convert_and_write(''.join([c3d_folder,"\\"+c3d_file]))
 
