@@ -42,6 +42,7 @@ parser.add_argument('-s', action='store', dest='write_c3d_folder', default='jifo
 
 args = parser.parse_args()
 
+
 # TODO: This series of 'if' statements is too complex.  Please simplify: Get Filenames-->Check Directories-->Read-->Convert-->Write
 
 if args.c3d_file and not args.c3d_folder:
@@ -56,33 +57,34 @@ elif args.c3d_folder and args.c3d_file:
     raise Exception("Convert a file OR a folder")
 
 else:
-
-#first try to create without app class. then use tkinter instead from tkinter
-
     root = Tkinter.Tk()
 
-    def write_slogan():
-        root.withdraw()
-        c3d_folder=tkFileDialog.askdirectory(title='Choose a folder with c3d files to convert').encode("ascii")
-        for c3d_file in os.listdir(c3d_folder):
-            if c3d_file.endswith(".c3d"):
-             convert_and_write(''.join([c3d_folder,"\\"+c3d_file]))
-        root.quit()
-
-    def write_slogan2():
+    def write_c3d_file():
         root.withdraw()
         file_u=tkFileDialog.askopenfilename(title='Choose a c3d file to convert: ', filetypes=[('motive c3d tracking files', '*.c3d')])
         convert_and_write(file_u.encode("ascii"))
         root.quit()
 
+    def write_c3d_folder():
+        root.withdraw()
+        c3d_folder=tkFileDialog.askdirectory(title='Choose a folder with c3d files to convert:').encode("ascii")
+        for c3d_file in os.listdir(c3d_folder):
+            if c3d_file.endswith(".c3d"):
+             convert_and_write(''.join([c3d_folder,"\\"+c3d_file]))
+        root.quit()
+
     frame=Tkinter.Frame(root)
     frame.pack()
-    button=Tkinter.Button(frame, text="QUIT", fg="red", command=frame.quit)
-    button.pack(side=Tkinter.LEFT)
-    slogan = Tkinter.Button(frame, text="Folder", command=write_slogan)
-    slogan.pack(side=Tkinter.LEFT)
-    slogan2 = Tkinter.Button(frame, text="File", command=write_slogan2)
-    slogan2.pack(side=Tkinter.LEFT)
+
+    quit_button=Tkinter.Button(frame, text="QUIT", fg="red", command=frame.quit)
+    quit_button.pack(side=Tkinter.LEFT)
+
+    c3d_file_button = Tkinter.Button(frame, text="c3d file to convert", command=write_c3d_file)
+    c3d_file_button.pack(side=Tkinter.LEFT)
+
+    c3d_folder_button = Tkinter.Button(frame, text="folder with c3d files to convert", command=write_c3d_folder)
+    c3d_folder_button.pack(side=Tkinter.LEFT)
+
 
     Tkinter.mainloop()
 
