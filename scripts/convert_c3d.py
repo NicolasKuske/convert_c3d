@@ -73,7 +73,7 @@ if __name__ == '__main__':
 
     # Get Destination Directory (Save Directory)
     if args.write_c3d_folder:
-        # Check to make sure it exists, and if not, make one.
+        # TODO: Check to make sure it exists, and if not, make one.
         save_dir = args.write_c3d_folder
     else:
         save_dir = gui_save_c3d_directory()
