@@ -1,5 +1,9 @@
 __author__ = 'Nico'
 
+## FOR DEBUGGING
+#import pdb
+#pdb.set_trace()
+
 import btk
 import Tkinter, tkFileDialog
 import os
@@ -23,6 +27,10 @@ def convert_and_write(from_c3d_filename, to_c3d_filename):
 
     writer = btk.btkAcquisitionFileWriter()
     writer.SetInput(acq)
+    print to_c3d_filename
+    print to_c3d_filename
+    print to_c3d_filename
+    print to_c3d_filename
     writer.SetFilename(to_c3d_filename)
     writer.Update()
 
@@ -30,9 +38,10 @@ def convert_and_write(from_c3d_filename, to_c3d_filename):
 def gui_load_c3d_filenames():
         root = Tkinter.Tk()
         root.withdraw()
-        c3d_filenames = tkFileDialog.askopenfilename(title='Choose a c3d file to convert: ',
-                                                filetypes=[('motive c3d tracking files', '*.c3d')],
-                                                multiple=True).encode("ascii")
+        c3d_filenames_u=tkFileDialog.askopenfilename(title='Choose a c3d file to convert: ',
+                                                    filetypes=[('motive c3d tracking files', '*.c3d')],
+                                                    multiple=True)
+        c3d_filenames=[f.encode('ascii') for f in c3d_filenames_u]
         root.quit()
         return c3d_filenames
 
@@ -40,7 +49,7 @@ def gui_load_c3d_filenames():
 def gui_save_c3d_directory():
         root = Tkinter.Tk()
         root.withdraw()
-        save_dir = tkFileDialog.askdirectory(title='Choose a directory to save to: ')
+        save_dir = (tkFileDialog.askdirectory(title='Choose a directory to save to: ')).encode('ascii')
         root.quit()
         return save_dir
 
@@ -54,12 +63,12 @@ if __name__ == '__main__':
     parser.add_argument('-f', action='store', dest='c3d_file', default='',
                         help='Name of the c3d file to convert.')
 
-    #parser.add_argument('-F', action='store', dest='c3d_folder', default='', help='Name of the folder which contains c3d files to convert.')
+    parser.add_argument('-F', action='store', dest='c3d_folder', default='', help='Name of the folder which contains c3d files to convert.')
 
     parser.add_argument('-s', action='store', dest='write_c3d_folder', default='',
                         help='Folder where converted c3d files will be written to.')
 
-    parser.add_argment('--append', action='store', dest='save_filename_append', default='_vicon',
+    parser.add_argument('--append', action='store', dest='save_filename_append', default='_vicon',
                        help='string to append to new files')
 
     args = parser.parse_args()
@@ -81,11 +90,9 @@ if __name__ == '__main__':
     # Convert and Write to Each File
     for name in filenames:
         load_dir, base_name = os.path.split(name)
-        _, ext = os.path.splitext(name)
-        convert_and_write(name, os.path.join(save_dir, base_name+args.save_filename_append+ext))
-
-
-
+        base, ext = os.path.splitext(base_name)
+        save_filename=os.path.join(save_dir, base+args.save_filename_append+ext)
+        convert_and_write(name,save_filename)
 
 
 
