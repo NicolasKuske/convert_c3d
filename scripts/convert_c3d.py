@@ -11,6 +11,7 @@ import argparse
 
 def convert_and_write(from_c3d_filename, to_c3d_filename):
 
+
     # Makes reader from filename
     reader = btk.btkAcquisitionFileReader()
     reader.SetFilename(from_c3d_filename)
@@ -19,20 +20,23 @@ def convert_and_write(from_c3d_filename, to_c3d_filename):
     points=acq.GetPoints()
     n_points=points.GetItemNumber()
 
+    print '\n \n Updating values in c3d object'
+    n=0
     for f in xrange(acq.GetPointFrameNumber()):
         for i in xrange(n_points):
             point=acq.GetPoint(i)
             data=point.GetValues()[f,:]
             point.SetDataSlice(f, *[1000*x for x in data])
+        if not f%5000:
+            n=n+1
+            print '\n So far updated {} frames'.format(n*5000)
 
     writer = btk.btkAcquisitionFileWriter()
     writer.SetInput(acq)
-    print to_c3d_filename
-    print to_c3d_filename
-    print to_c3d_filename
-    print to_c3d_filename
     writer.SetFilename(to_c3d_filename)
     writer.Update()
+    print '\n Converted c3d file from: \n {}'.format(from_c3d_filename)
+    print '\n Wrote converted c3d file to: \n {}'.format(to_c3d_filename)
 
 
 def gui_load_c3d_filenames():
@@ -60,12 +64,12 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="This script converts a c3d file as exported by motive to a vicon readable c3d file.",
                                  epilog="If no arguments are given, the script first opens a window to let you choose a c3d file or a directory of c3d files to convert. \n")
 
-    parser.add_argument('-f', action='store', dest='c3d_file', default='',
-                        help='Name of the c3d file to convert.')
+    parser.add_argument('-i', action='store', dest='c3d_file', default='',
+                        help='Name of the c3d file to convert or name of the folder which contains c3d files to convert.')
 
-    parser.add_argument('-F', action='store', dest='c3d_folder', default='', help='Name of the folder which contains c3d files to convert.')
+    parser.add_argument('-R', action='store_true', dest='c3d_folder', default=False, help='When this flag is set files are taken from a c3d_folder')
 
-    parser.add_argument('-s', action='store', dest='write_c3d_folder', default='',
+    parser.add_argument('-o', action='store', dest='write_c3d_folder', default='',
                         help='Folder where converted c3d files will be written to.')
 
     parser.add_argument('--append', action='store', dest='save_filename_append', default='_vicon',
@@ -73,16 +77,28 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    # Make sure only a file or folder (not both) is specified)
-    if args.c3d_folder and args.c3d_file:
-        raise Exception("Convert a file OR a folder")
 
     # Get Filenames
-    filenames = [args.c3d_file] if args.c3d_file  else gui_load_c3d_filenames()
+    if args.c3d_file:
+        if os.path.isdir(args.c3d_file):
+            assert args.c3d_folder, "When -R flag is not set, files are taken from a c3d_file NOT c3d_folder!"
+            filenames=[]
+            for c3d_file in os.listdir(args.c3d_file):
+                if c3d_file.endswith(".c3d"):
+                    filenames.append(os.path.join(args.c3d_file,c3d_file))
+
+        else:
+            assert not args.c3d_folder, "When -R flag is set, files are taken from a c3d_folder NOT c3d_file!"
+            filenames=[args.c3d_file]
+
+    else:
+        filenames = gui_load_c3d_filenames()
+
 
     # Get Destination Directory (Save Directory)
     if args.write_c3d_folder:
-        # TODO: Check to make sure it exists, and if not, make one.
+        if not os.path.exists(args.write_c3d_folder):
+            os.makedirs(args.write_c3d_folder)
         save_dir = args.write_c3d_folder
     else:
         save_dir = gui_save_c3d_directory()
