@@ -65,12 +65,12 @@ if __name__ == '__main__':
                                  epilog="If no arguments are given, the script first opens a window to let you choose a c3d file or a directory of c3d files to convert. \n")
 
     parser.add_argument('-i', action='store', dest='c3d_file', default='',
-                        help='Name of the c3d file to convert or name of the folder which contains c3d files to convert.')
+                        help='name of the c3d file to convert or name of the folder which contains c3d files to convert')
 
-    parser.add_argument('-R', action='store_true', dest='c3d_folder', default=False, help='When this flag is set files are taken from a c3d_folder')
+    parser.add_argument('-R', action='store_true', dest='c3d_folder', default=False, help='when this flag is set files are taken from a c3d_folder')
 
     parser.add_argument('-o', action='store', dest='write_c3d_folder', default='',
-                        help='Folder where converted c3d files will be written to.')
+                        help='folder where converted c3d files will be written to')
 
     parser.add_argument('--append', action='store', dest='save_filename_append', default='_vicon',
                        help='string to append to new files')
