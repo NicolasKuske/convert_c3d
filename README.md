@@ -15,21 +15,25 @@ Feedback is welcome.
 #### Installing Python
 
 To run the converter script we recommend to install Python 2.7 (32 bit) and make sure it runs in the windows console (i.e. open the Command Window and type *python*. If python starts, then it's installed!  If it is installed but not working, try and add the following file adresses (or depending where you installed stuff) to the PATH variable::
-  
+  ```
   C:\Python27\; C:\Python27\Scripts\
-
+  ```
 #### Downloading convert_c3d
 
 There are many options for installing this script! While we included a simple Windows Installer in the dist/ folder, the best way would be to clone the repository using *git* (you may need to install git as well: https://git-scm.com/downloads) and download it from the command window into the folder of your choice using the command::
 
-git clone https://github.com/NicolasKuske/convert_c3d.git
+  ```
+  git clone https://github.com/NicolasKuske/convert_c3d.git
+  ```
 
 #### Installing convert_c3d
 
 To install, simply run the setup.py file by navigating into the convert_c3d directory via the command window (*cd convert_c3d*) and running the install option on the setup.py script::
 
-cd convert_c3d
-python setup.py install
+  ```
+  cd convert_c3d
+  python setup.py install
+  ```
 
 That's it!
 
@@ -37,7 +41,9 @@ That's it!
 
 You should now be able to run the converter script from any directory in the terminal by simply writing::
 
+  ```
   convert_c3d
+  ```
 
 ##### From the GUI
 
