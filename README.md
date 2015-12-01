@@ -6,7 +6,7 @@ We are using the Optitrack camera system's program, Motive, to export c3d take f
 
 The convert_c3d.py script uses the Biomechanical Toolkit package BTK to convert
 these c3d files, making them readable (and scaling them correctly) by Vicon.
-We hope that our script can also solve your c3d compatibility problem.
+We hope that our script can also solve your c3d compatibility problem. <br/>
 Feedback is welcome.
 
 ### How do I install it?
@@ -51,17 +51,17 @@ A window will pop up asking you to select one or multiple c3d files to be conver
 
 ##### As a Console Script
 
-Optionally, you can use the commandline options to change the scripts behaviour:
+Optionally, you can use the commandline options to change the scripts behaviour::
 
-* Choose a string appended to the original filename which together will be the name for the converted file. Default is APPENDSTRING=_vicon  <br/>  convert_c3d.py --append APPENDSTRING            
+* Choose a string appended to the original filename which together will be the name for the converted file. Default is APPENDSTRING=_vicon::  <br/>  convert_c3d.py --append APPENDSTRING            
 
-* Choose a single file to be converted  <br/>  convert_c3d.py -i C3D_FILE                  
+* Choose a single file to be converted::  <br/>  convert_c3d.py -i C3D_FILE                  
 
-* Choose a folder in which all c3d files will be converted  <br/> convert_c3d.py -R -i C3D_FOLDER            
+* Choose a folder in which all c3d files will be converted::  <br/> convert_c3d.py -R -i C3D_FOLDER            
 
-* Choose the folder to which the c3d files will be written  <br/>  convert_c3d.py -o WRITE_FOLDER                    
+* Choose the folder to which the c3d files will be written::  <br/>  convert_c3d.py -o WRITE_FOLDER                    
 
-* Open a helptext showing all options  <br/>  convert_c3d.py -h                                 
+* Open a helptext showing all options::  <br/>  convert_c3d.py -h                                 
 
 Note that all options are optional and that, except for the default appendstring, in case you do not specify an option, you will be prompted by a window.
 
