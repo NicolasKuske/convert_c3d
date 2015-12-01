@@ -55,7 +55,7 @@ Optionally, you can use the commandline options to change the scripts behaviour:
 
 * convert_c3d.py --append APPENDSTRING              Choose a string appended to the original filename which together will be the name for the converted file. Default is APPENDSTRING=_vicon
 
-* convert_c3d.py -i C3D_FILES                  Choose a single file to be converted
+* convert_c3d.py -i C3D_FILE                  Choose a single file to be converted
 
 * convert_c3d.py -R -i C3D_FOLDER            Choose a folder in which all c3d files will be converted
 
