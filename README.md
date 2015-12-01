@@ -53,15 +53,15 @@ A window will pop up asking you to select one or multiple c3d files to be conver
 
 Optionally, you can use the commandline options to change the scripts behaviour:
 
-* convert_c3d.py --append APPENDSTRING              Choose a string appended to the original filename which together will be the name for the converted file. Default is APPENDSTRING=_vicon
+* Choose a string appended to the original filename which together will be the name for the converted file. Default is APPENDSTRING=_vicon  <br/>  convert_c3d.py --append APPENDSTRING            
 
-* convert_c3d.py -i C3D_FILE                  Choose a single file to be converted
+* Choose a single file to be converted  <br/>  convert_c3d.py -i C3D_FILE                  
 
-* convert_c3d.py -R -i C3D_FOLDER            Choose a folder in which all c3d files will be converted
+* Choose a folder in which all c3d files will be converted  <br/> convert_c3d.py -R -i C3D_FOLDER            
 
-* convert_c3d.py -o WRITE_FOLDER                    Choose the folder to which the c3d files will be written
+* Choose the folder to which the c3d files will be written  <br/>  convert_c3d.py -o WRITE_FOLDER                    
 
-* convert_c3d.py -h                                 Open a helptext showing all options
+* Open a helptext showing all options  <br/>  convert_c3d.py -h                                 
 
 Note that all options are optional and that, except for the default appendstring, in case you do not specify an option, you will be prompted by a window.
 
